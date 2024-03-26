@@ -7,14 +7,14 @@ public class T3 extends Thread {
     @Override
     public void run() {
         System.out.println("T3 is started");
-        int startIndex = Lab1.N / 2;
-        int size = Lab1.N / 4;
+        int startIndex = Lab2.N / 2;
+        int size = Lab2.N / 4;
 
         try {
             int f1, p1, x1;
             Arrays.fill(Data.B, 1);
             Arrays.fill(Data.E, 1);
-            for (int i = 0; i < Lab1.N; i++) {
+            for (int i = 0; i < Lab2.N; i++) {
                 Arrays.fill(Data.ME[i], 1);
             }
 
@@ -35,7 +35,7 @@ public class T3 extends Thread {
             Data.S42.acquire();
             System.out.println("T3: S42 acquired");
 
-            Arrays.sort(Data.S, startIndex, startIndex + (Lab1.N / 2));
+            Arrays.sort(Data.S, startIndex, startIndex + (Lab2.N / 2));
 
             System.out.println("T3: S32 signal 1");
             Data.S32.release();
@@ -50,8 +50,8 @@ public class T3 extends Thread {
             x1 = Data.x;
             Data.Sx.release();
 
-            int[] pS = new int[Lab1.N];
-            int[] fxE = new int[Lab1.N];
+            int[] pS = new int[Lab2.N];
+            int[] fxE = new int[Lab2.N];
             Data.partiallyMultiplyScalarVector(p1, Data.S, startIndex, size, pS);
             Data.partiallyMultiplyScalarVector(f1 * x1, Data.E, startIndex, size, fxE);
             Data.partiallyAddVectors(pS, fxE, startIndex, size, Data.A);

@@ -7,14 +7,14 @@
 
 package ua.hoshion;
 
-public class Lab1 {
+public class Lab2 {
 
-    public static int N = 8;
+    public static int N = 1200;
     public static void main(String[] args) {
 
         // Waiting 10 seconds for changing cores amount in Task Manager
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

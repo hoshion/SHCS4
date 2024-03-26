@@ -7,13 +7,13 @@ public class T2 extends Thread {
     @Override
     public void run() {
         System.out.println("T2 is started");
-        int startIndex = Lab1.N / 4;
-        int size = Lab1.N / 4;
+        int startIndex = Lab2.N / 4;
+        int size = Lab2.N / 4;
 
         try {
             int f1, p1, x1;
             Arrays.fill(Data.D, 1);
-            for (int i = 0; i < Lab1.N; i++) {
+            for (int i = 0; i < Lab2.N; i++) {
                 Arrays.fill(Data.MM[i], 1);
             }
             Data.p = 1;
@@ -45,8 +45,8 @@ public class T2 extends Thread {
             x1 = Data.x;
             Data.Sx.release();
 
-            int[] pS = new int[Lab1.N];
-            int[] fxE = new int[Lab1.N];
+            int[] pS = new int[Lab2.N];
+            int[] fxE = new int[Lab2.N];
             Data.partiallyMultiplyScalarVector(p1, Data.S, startIndex, size, pS);
             Data.partiallyMultiplyScalarVector(f1 * x1, Data.E, startIndex, size, fxE);
             Data.partiallyAddVectors(pS, fxE, startIndex, size, Data.A);

@@ -7,8 +7,8 @@ public class T4 extends Thread {
     @Override
     public void run() {
         System.out.println("T4 is started");
-        int startIndex = 3 * Lab1.N / 4;
-        int size = Lab1.N / 4;
+        int startIndex = 3 * Lab2.N / 4;
+        int size = Lab2.N / 4;
 
         try {
             int f1, p1, x1;
@@ -42,8 +42,8 @@ public class T4 extends Thread {
             x1 = Data.x;
             Data.Sx.release();
 
-            int[] pS = new int[Lab1.N];
-            int[] fxE = new int[Lab1.N];
+            int[] pS = new int[Lab2.N];
+            int[] fxE = new int[Lab2.N];
             Data.partiallyMultiplyScalarVector(p1, Data.S, startIndex, size, pS);
             Data.partiallyMultiplyScalarVector(f1 * x1, Data.E, startIndex, size, fxE);
             Data.partiallyAddVectors(pS, fxE, startIndex, size, Data.A);

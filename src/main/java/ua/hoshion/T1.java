@@ -8,7 +8,7 @@ public class T1 extends Thread {
     public void run() {
         System.out.println("T1 is started");
         int startIndex = 0;
-        int size = Lab1.N / 4;
+        int size = Lab2.N / 4;
 
         try {
             int f1, p1, x1;
@@ -30,7 +30,7 @@ public class T1 extends Thread {
             Data.S22.acquire();
             System.out.println("T1: S22 acquired");
 
-            Arrays.sort(Data.S, startIndex, startIndex + (Lab1.N / 2));
+            Arrays.sort(Data.S, startIndex, startIndex + (Lab2.N / 2));
 
             Data.S32.acquire();
             System.out.println("T1: S32 acquired");
@@ -48,8 +48,8 @@ public class T1 extends Thread {
             x1 = Data.x;
             Data.Sx.release();
 
-            int[] pS = new int[Lab1.N];
-            int[] fxE = new int[Lab1.N];
+            int[] pS = new int[Lab2.N];
+            int[] fxE = new int[Lab2.N];
             Data.partiallyMultiplyScalarVector(p1, Data.S, startIndex, size, pS);
             Data.partiallyMultiplyScalarVector(f1 * x1, Data.E, startIndex, size, fxE);
             Data.partiallyAddVectors(pS, fxE, startIndex, size, Data.A);

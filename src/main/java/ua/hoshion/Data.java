@@ -10,14 +10,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Data {
 
-    public static int[] A = new int[Lab1.N];
-    public static int[] B = new int[Lab1.N];
-    public static int[] C = new int[Lab1.N];
-    public static int[] D = new int[Lab1.N];
-    public static int[] E = new int[Lab1.N];
-    public static int[] S = new int[Lab1.N];
-    public static int[][] ME = new int[Lab1.N][Lab1.N];
-    public static int[][] MM = new int[Lab1.N][Lab1.N];
+    public static int[] A = new int[Lab2.N];
+    public static int[] B = new int[Lab2.N];
+    public static int[] C = new int[Lab2.N];
+    public static int[] D = new int[Lab2.N];
+    public static int[] E = new int[Lab2.N];
+    public static int[] S = new int[Lab2.N];
+    public static int[][] ME = new int[Lab2.N][Lab2.N];
+    public static int[][] MM = new int[Lab2.N][Lab2.N];
     public static int p;
     public static int x;
     public static Semaphore S11 = new Semaphore(0);
@@ -34,10 +34,10 @@ public class Data {
 
     public static int[][] readMatrixFromKeyboard(String name) {
         Scanner scanner = new Scanner(System.in);
-        int[][] matrix = new int[Lab1.N][Lab1.N];
+        int[][] matrix = new int[Lab2.N][Lab2.N];
         System.out.println("Enter the elements of the matrix " + name + ": ");
-        for (int i = 0; i < Lab1.N; i++) {
-            for (int j = 0; j < Lab1.N; j++) {
+        for (int i = 0; i < Lab2.N; i++) {
+            for (int j = 0; j < Lab2.N; j++) {
                 matrix[i][j] = scanner.nextInt();
             }
         }
@@ -46,16 +46,16 @@ public class Data {
 
     public static int[] readVectorFromKeyboard(String name) {
         Scanner scanner = new Scanner(System.in);
-        int[] vector = new int[Lab1.N];
+        int[] vector = new int[Lab2.N];
         System.out.println("Enter the elements of the vector " + name + ": ");
-        for (int i = 0; i < Lab1.N; i++) {
+        for (int i = 0; i < Lab2.N; i++) {
             vector[i] = scanner.nextInt();
         }
         return vector;
     }
 
     public static int[][] multiplyMatrices(int[][] matrix1, int[][] matrix2) {
-        int[][] resultMatrix = new int[Lab1.N][Lab1.N];
+        int[][] resultMatrix = new int[Lab2.N][Lab2.N];
 
         for (int i = 0; i < matrix1.length; i++) {
             for (int j = 0; j < matrix2[0].length; j++) {
@@ -107,7 +107,7 @@ public class Data {
     }
 
     public static int[] multiplyMatrixVector(int[][] matrix, int[] vector) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < matrix.length; i++) {
             int sum = 0;
             for (int j = 0; j < matrix[i].length; j++) {
@@ -119,7 +119,7 @@ public class Data {
     }
 
     public static int[] multiplyVectorMatrix(int[][] matrix, int[] vector) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < matrix[0].length; i++) {
             int sum = 0;
             for (int j = 0; j < vector.length; j++) {
@@ -131,7 +131,7 @@ public class Data {
     }
 
     public static int[] multiplyVectorVector(int[] vector1, int[] vector2) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < vector1.length; i++) {
             resultVector[i] = vector1[i] * vector2[i];
         }
@@ -147,7 +147,7 @@ public class Data {
     }
 
     public static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
-        int[][] resultMatrix = new int[Lab1.N][Lab1.N];
+        int[][] resultMatrix = new int[Lab2.N][Lab2.N];
         for (int i = 0; i < matrix1.length; i++) {
             for (int j = 0; j < matrix1[0].length; j++) {
                 resultMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
@@ -157,7 +157,7 @@ public class Data {
     }
 
     public static int[] addVectors(int[] vector1, int[] vector2) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < vector1.length; i++) {
             resultVector[i] = vector1[i] + vector2[i];
         }
@@ -165,7 +165,7 @@ public class Data {
     }
 
     public static int[] addMatrixVector(int[][] matrix1, int[] vector1) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < matrix1.length; i++) {
             int sum = 0;
             for (int j = 0; j < vector1.length; j++) {
@@ -177,7 +177,7 @@ public class Data {
     }
 
     public static int[] addVectorMatrix(int[] vector1, int[][] matrix1) {
-        int[] resultVector = new int[Lab1.N];
+        int[] resultVector = new int[Lab2.N];
         for (int i = 0; i < matrix1[0].length; i++) {
             int sum = 0;
             for (int j = 0; j < vector1.length; j++) {
@@ -207,7 +207,7 @@ public class Data {
     }
 
     public static int[][] transposeMatrix(int[][] matrix) {
-        int[][] resultMatrix = new int[Lab1.N][Lab1.N];
+        int[][] resultMatrix = new int[Lab2.N][Lab2.N];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 resultMatrix[i][j] = matrix[j][i];
@@ -245,17 +245,17 @@ public class Data {
     }
 
     public static int[][] readMatrixFromFile(String name, String fileName) {
-        int[][] matrix = new int[Lab1.N][Lab1.N];
+        int[][] matrix = new int[Lab2.N][Lab2.N];
         System.out.println("Reading file for matrix " + name);
-        for (int i = 0; i < Lab1.N; i++) {
-            matrix[i] = readNumbersFromFile(Lab1.N, fileName);
+        for (int i = 0; i < Lab2.N; i++) {
+            matrix[i] = readNumbersFromFile(Lab2.N, fileName);
         }
         return matrix;
     }
 
     public static int[] readVectorFromFile(String name, String fileName) {
         System.out.println("Reading file for vector " + name);
-        return readNumbersFromFile(Lab1.N, fileName);
+        return readNumbersFromFile(Lab2.N, fileName);
     }
 
     public static void saveVectorToFile(String fileName, int[] vector) {
@@ -270,7 +270,7 @@ public class Data {
     }
 
     public static int[] copyArray(int[] original) {
-        int[] copiedArray = new int[Lab1.N];
+        int[] copiedArray = new int[Lab2.N];
         System.arraycopy(original, 0, copiedArray, 0, original.length);
         return copiedArray;
     }
