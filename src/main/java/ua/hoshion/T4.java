@@ -1,60 +1,55 @@
 package ua.hoshion;
 
-import java.util.Arrays;
-import java.util.concurrent.BrokenBarrierException;
-
 public class T4 extends Thread {
+
+    private final Data monitor;
+    private int f4, e4;
+
+    public T4 (Data monitor) {
+        this.monitor = monitor;
+    }
+
     @Override
     public void run() {
         System.out.println("T4 is started");
-        int startIndex = 3 * Lab2.N / 4;
-        int size = Lab2.N / 4;
+        int startIndex = 3 * Lab4.N / 4;
 
-        try {
-            int f1, p1, x1;
-            Arrays.fill(Data.C, 1);
-            Data.x = 1;
+        // Введення Z, MD
+        Data.readVector(Data.Z);
+        Data.readMatrix(Data.MD);
 
-            System.out.println("T4: S41 signal 3");
-            Data.S41.release(3);
-            Data.S21.acquire();
-            System.out.println("T4: S21 acquired");
-            Data.S31.acquire();
-            System.out.println("T4: S31 acquired");
+        // Сигнал задачі T1, T2, T3 про введення z, MD
+        this.monitor.signalIn();
 
-            int fi = Data.multiplyVectorsScalar(Data.B, Data.C, startIndex, size);
-            Data.f.addAndGet(fi);
+        // Чекати на уведення даних в задачі T1, T3
+        this.monitor.waitIn();
 
-            int[][] ME_MM = Data.partiallyMultiplyMatrices(Data.ME, Data.MM, startIndex, size);
-            Data.partiallyMultiplyVectorMatrix(Data.D, ME_MM, startIndex, size, Data.S);
-            Arrays.sort(Data.S, startIndex, startIndex + size);
+        // Обчислення1 f4 = min(Zн)
+        this.f4 = Data.partiallyMaxInVector(Data.Z, startIndex);
 
-            System.out.println("T4: S42 signal 1");
-            Data.S42.release();
-            Data.S11.acquire();
-            System.out.println("T4: S11 acquired");
+        // Обчислення2 f = max(f, f4)
+        this.monitor.maxF(this.f4);               // КД1
 
-            f1 = Data.f.get();
-            synchronized (Data.CSp) {
-                p1 = Data.p;
-            }
-            Data.Sx.acquire();
-            x1 = Data.x;
-            Data.Sx.release();
+        // Сигнал Т1, Т2, Т3 про завершення обчислення f
+        this.monitor.signalMax();
 
-            int[] pS = new int[Lab2.N];
-            int[] fxE = new int[Lab2.N];
-            Data.partiallyMultiplyScalarVector(p1, Data.S, startIndex, size, pS);
-            Data.partiallyMultiplyScalarVector(f1 * x1, Data.E, startIndex, size, fxE);
-            Data.partiallyAddVectors(pS, fxE, startIndex, size, Data.A);
+        // Чекати на завершення обчислень f в потоках T1 T2 T3
+        this.monitor.waitMax();
 
-            System.out.println("T4: B1 barrier");
-            Data.B1.await();
+        // Копія f4=f
+        this.f4 = this.monitor.copyF();          // КД2
 
-            Data.printResultVector("T4", Data.A);
-        } catch (InterruptedException | BrokenBarrierException e) {
-            throw new RuntimeException(e);
-        }
+        // Копія e1=e
+        this.e4 = this.monitor.copyE();          // КД3
+
+        // Обчислення3 MOн = e4*(MD*MCн) + f4*MXн
+        int[][] MD_MC = Data.partiallyMultiplyMatrices(Data.MD, Data. MC, startIndex);
+        int[][] e_MD_MC = Data.partiallyMultiplyMatrixScalar(MD_MC, this.e4, startIndex);
+        int[][] f_MX = Data.partiallyMultiplyMatrixScalar(Data.MX, this.f4, startIndex);
+        Data.partiallyAddMatrices(e_MD_MC, f_MX, startIndex, Data.MO);
+
+        // Сигнал задачі T3 про обчислення MOн
+        this.monitor.signalCalc();
 
         System.out.println("T4 is finished");
     }

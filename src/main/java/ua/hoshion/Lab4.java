@@ -1,15 +1,17 @@
 /*
-* Лабораторна робота ЛР2 Варіант 4
-* A = sort(D*(ME*MM))*p + (B*C)*E*x
+* Лабораторна робота ЛР4 Варіант 28
+* MO = (MD*MC)*e + max(Z)*MX
 * Шестеров С. ІМ-12
-* Дата 25.03.2024
+* Дата 21.04.2024
 * */
 
 package ua.hoshion;
 
-public class Lab2 {
+public class Lab4 {
 
-    public static int N = 1200;
+    public static int N = 8;
+    public static int P = 4;
+    public static int H = Lab4.N / Lab4.P;
     public static void main(String[] args) {
 
         // Waiting 10 seconds for changing cores amount in Task Manager
@@ -22,11 +24,14 @@ public class Lab2 {
         // Saving information about start time of program
         long startTime = System.currentTimeMillis();
 
+        // Створення Монітору
+        Data monitor = new Data();
+
         // Initializing threads
-        T1 T1 = new T1();
-        T2 T2 = new T2();
-        T3 T3 = new T3();
-        T4 T4 = new T4();
+        T1 T1 = new T1(monitor);
+        T2 T2 = new T2(monitor);
+        T3 T3 = new T3(monitor);
+        T4 T4 = new T4(monitor);
 
         // Starting threads
         T1.start();
@@ -49,6 +54,6 @@ public class Lab2 {
         long elapsedTime = endTime - startTime;
 
         // Showing info about taken time
-        System.out.println("Time taken: " + elapsedTime + " nanoseconds");
+        System.out.println("Time taken: " + elapsedTime + " milliseconds");
     }
 }
