@@ -9,10 +9,11 @@ package ua.hoshion;
 
 public class Lab4 {
 
-    public static int N = 8;
+    public static int N = 1200;
     public static int P = 4;
     public static int H = Lab4.N / Lab4.P;
     public static void main(String[] args) {
+        System.out.println("Lab4 started");
 
         // Waiting 10 seconds for changing cores amount in Task Manager
         try {
@@ -54,6 +55,8 @@ public class Lab4 {
         long elapsedTime = endTime - startTime;
 
         // Showing info about taken time
-        System.out.println("Time taken: " + elapsedTime + " milliseconds");
+        System.out.println("Time taken: " + elapsedTime + "ms");
+
+        System.out.println("Lab4 finished");
     }
 }
